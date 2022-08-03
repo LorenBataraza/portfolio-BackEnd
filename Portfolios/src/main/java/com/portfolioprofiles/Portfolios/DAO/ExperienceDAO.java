@@ -21,7 +21,6 @@ public interface ExperienceDAO extends JpaRepository <Experience, Long> {
     
    public List<Experience> findAllByProfileId(Long profileId);
     
-    //@Query("SELECT r.id FROM portfolios.experience r where r.name = :name") 
-    //List<Experience> findIdByProfileID(@Param("profileID") Long profileID);
+
 
 }

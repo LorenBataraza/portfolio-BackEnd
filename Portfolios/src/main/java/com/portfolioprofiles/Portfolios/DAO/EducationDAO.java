@@ -21,7 +21,6 @@ public interface EducationDAO extends JpaRepository <Education, Long> {
     
    public List<Education> findAllByProfileId(Long profileId);
             
-    //@Query("SELECT r.id FROM portfolios.education r where r.name = :name") 
-    //List<Education> findIdByProfileID(@Param("profileID") Long profileID);
+
 
 }

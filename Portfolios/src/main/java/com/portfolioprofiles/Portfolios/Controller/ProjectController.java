@@ -4,7 +4,9 @@
  */
 package com.portfolioprofiles.Portfolios.Controller;
 
+import com.portfolioprofiles.Portfolios.DTO.ProjectDTO;
 import com.portfolioprofiles.Portfolios.Model.Experience;
+import com.portfolioprofiles.Portfolios.Model.Profile;
 import com.portfolioprofiles.Portfolios.Model.Project;
 import com.portfolioprofiles.Portfolios.Service.IExperienceService;
 import com.portfolioprofiles.Portfolios.Service.IProjectService;
@@ -51,10 +53,19 @@ public class ProjectController {
     }
      
     @PostMapping("/new")
-     public void addProject(@RequestBody Project ed ){
-            projectService.addProject(ed);
+     public void addProject(@RequestBody ProjectDTO profileProjectObject){
+         Project project = profileProjectObject.getEducation();
+         Long profileId = profileProjectObject.getProfileId();
+         project.setProfile(new Profile(profileId));
+         projectService.addProject(project);
     }
     
+    @PostMapping("/new/{profile_id}")
+     public void registerEducatonByUr(@RequestBody Project project,  @PathVariable Long profile_id){
+     project.profile.setId(profile_id);
+     projectService.addProject(project);
+     }
+     
      
     @DeleteMapping("/delete/{id}")
     public void deleteProject(@PathVariable Long id){

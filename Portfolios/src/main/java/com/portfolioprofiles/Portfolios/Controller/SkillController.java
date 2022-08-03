@@ -4,6 +4,8 @@
  */
 package com.portfolioprofiles.Portfolios.Controller;
 
+import com.portfolioprofiles.Portfolios.DTO.SkillDTO;
+import com.portfolioprofiles.Portfolios.Model.Profile;
 import com.portfolioprofiles.Portfolios.Model.Project;
 import com.portfolioprofiles.Portfolios.Model.Skill;
 import com.portfolioprofiles.Portfolios.Service.IProjectService;
@@ -40,7 +42,7 @@ public class SkillController {
      }
      
      @GetMapping("/{id}")
-     public Skill searchProject(Long id){
+     public Skill searchSkill(Long id){
      return skillService.searchSkill( id);
      }
      
@@ -51,13 +53,21 @@ public class SkillController {
     }
      
     @PostMapping("/new")
-     public void addProject(@RequestBody Skill skill ){
-            skillService.addSkill(skill);
+     public void addSkill(@RequestBody SkillDTO profileSkillObject){
+         Skill skill = profileSkillObject.getEducation();
+         Long profileId = profileSkillObject.getProfileId();
+         skill.setProfile(new Profile(profileId));
+         skillService.addSkill(skill);
     }
     
+    @PostMapping("/new/{profile_id}")
+     public void registerEducatonByUr(@RequestBody Skill skill,  @PathVariable Long profile_id){
+     skill.profile.setId(profile_id);
+     skillService.addSkill(skill);
+     }
      
     @DeleteMapping("/delete/{id}")
-    public void deleteProject(@PathVariable Long id){
+    public void deleteSkill(@PathVariable Long id){
         skillService.deleteSkill(id);
     }    
     

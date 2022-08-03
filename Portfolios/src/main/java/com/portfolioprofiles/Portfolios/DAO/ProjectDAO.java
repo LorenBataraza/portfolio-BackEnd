@@ -19,8 +19,6 @@ import org.springframework.stereotype.Repository;
 public interface ProjectDAO extends JpaRepository <Project, Long> {
     
   public List<Project> findAllByProfileId(Long profileId);
-  //@Query("SELECT r.id FROM porfolios.project r where r.name = :name") 
-  //List<Project> findIdByProfileID(@Param("profileID") Long profileID);
 
     
 }

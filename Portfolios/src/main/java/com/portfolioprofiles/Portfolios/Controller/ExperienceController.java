@@ -4,8 +4,10 @@
  */
 package com.portfolioprofiles.Portfolios.Controller;
 
+import com.portfolioprofiles.Portfolios.DTO.ExperienceDTO;
 import com.portfolioprofiles.Portfolios.Model.Education;
 import com.portfolioprofiles.Portfolios.Model.Experience;
+import com.portfolioprofiles.Portfolios.Model.Profile;
 import com.portfolioprofiles.Portfolios.Service.IEducationService;
 import com.portfolioprofiles.Portfolios.Service.IExperienceService;
 import java.util.List;
@@ -45,10 +47,20 @@ public class ExperienceController {
     }
      
     @PostMapping("/new")
-     public void addExperience(@RequestBody Experience ed ){
-            experienceService.addExperience(ed);
+     public void addExperience(@RequestBody ExperienceDTO profileExperienceObject){
+         Experience experience = profileExperienceObject.getEducation();
+         Long profileId = profileExperienceObject.getProfileId();
+         experience.setProfile(new Profile(profileId));
+         experienceService.addExperience(experience);
     }
-    
+     
+     
+    @PostMapping("/new/{profile_id}")
+     public void registerEducatonByUr(@RequestBody Experience experience,  @PathVariable Long profile_id){
+     experience.profile.setId(profile_id);
+     experienceService.addExperience(experience);
+     }
+     
      
     @DeleteMapping("/delete/{id}")
     public void deleteExperience(@PathVariable Long id){

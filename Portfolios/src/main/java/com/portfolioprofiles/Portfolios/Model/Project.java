@@ -49,7 +49,7 @@ public class Project {
    
     @ManyToOne()
     @JoinColumn(name= "profile_Id", nullable = false)
-    private Profile profile; 
+    public Profile profile; 
     
     public Project(){
     }

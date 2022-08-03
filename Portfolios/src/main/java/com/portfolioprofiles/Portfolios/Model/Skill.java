@@ -39,7 +39,7 @@ public class Skill {
     
     @ManyToOne()
     @JoinColumn(name= "profile_Id", nullable = false)
-    private Profile profile;
+    public Profile profile;
     
     public Skill(){
     }

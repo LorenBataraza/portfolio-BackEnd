@@ -6,6 +6,7 @@ package com.portfolioprofiles.Portfolios.Controller;
 
 import com.portfolioprofiles.Portfolios.Model.Education;
 import com.portfolioprofiles.Portfolios.Model.Profile;
+import com.portfolioprofiles.Portfolios.DTO.EducationDTO;
 import com.portfolioprofiles.Portfolios.Service.EducationService;
 import com.portfolioprofiles.Portfolios.Service.IEducationService;
 import java.util.List;
@@ -18,10 +19,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  *
  * @author Loren
  */
+
+
 
 @RestController
 @RequestMapping("/educations")
@@ -45,21 +51,19 @@ public class EducationController {
          return "(Education)";
     }
      
-    @PostMapping("/new")
-     public void registerEducaton(@RequestBody Education education ){
-            educationService.registerEducaton(education);
-    }
-    
-     /*     @PostMapping("/new/{profile_id}")
-     public void registerEducatonWithId(@RequestBody Education education,  @PathVariable Long profile_id){
+
+     @PostMapping("/new/{profile_id}")
+     public void registerEducatonByUr(@RequestBody Education education,  @PathVariable Long profile_id){
      education.profile.setId(profile_id);
      educationService.registerEducaton(education);
-     }*/
+     }
      
-     @PostMapping("/new/{profileId}")
-     public void registerEducatonWithId(@RequestBody Education education,  @PathVariable Long profileId){
-            education.setProfile(new Profile(profileId));
-            educationService.registerEducaton(education);
+     @PostMapping("/new")
+     public void registerEducation(@RequestBody EducationDTO profileEducationObject){
+         Education education = profileEducationObject.getEducation();
+         Long profileId = profileEducationObject.getProfileId();
+         education.setProfile(new Profile(profileId));
+         educationService.registerEducaton(education);
     }
     
      
@@ -74,3 +78,4 @@ public class EducationController {
     }    
     
 }
+

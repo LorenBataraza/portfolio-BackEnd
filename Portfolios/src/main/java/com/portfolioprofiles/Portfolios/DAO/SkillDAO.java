@@ -19,7 +19,6 @@ import org.springframework.stereotype.Repository;
 public interface SkillDAO extends JpaRepository <Skill, Long> {
     
    public List<Skill> findAllByProfileId(Long profileId);
-   //@Query("SELECT r.id FROM portfolios.skill r where r.name = :name") 
-   // List<Skill> findIdByProfileID(@Param("profileID") Long profileID);
+
 
 }
